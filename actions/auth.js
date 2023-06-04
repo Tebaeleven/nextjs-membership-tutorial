@@ -15,6 +15,10 @@ import {
     REFRESH_SUCCESS,
     REFRESH_FAIL,
 
+    //認証チェック
+    AUTHENTICATED_SUCCESS,
+    AUTHENTICATED_FAIL,
+
     // 読み込み中
     SET_AUTH_LOADING,
     REMOVE_AUTH_LOADING,
@@ -149,13 +153,50 @@ export const refresh = () => async (dispatch) => {
             })
 
             dispatch(verify())
+        } else {
+            dispatch({
+                type: REFRESH_FAIL,
+            })
         }
+        
     } catch (err) {
         dispatch({
             type: REFRESH_FAIL,
         })
     }
 
+    dispatch({
+        type: REMOVE_AUTH_LOADING,
+    })
+}
+
+//認証チェック
+export const verify = () => async (dispatch) => {
+    dispatch({
+        type: SET_AUTH_LOADING,
+    })
+
+    try {
+        const res = await fetch('api/account/verify', {
+            method: 'GET',
+        })
+        if (res.status===200) {
+            dispatch({
+                type: AUTHENTICATED_SUCCESS,
+            })
+            dispatch(user())
+        } else {
+            dispatch({
+                type: AUTHENTICATED_FAIL,
+            })
+        }
+
+    } catch (err) {
+        dispatch({
+            type: AUTHENTICATED_FAIL,
+        })
+    }
+    
     dispatch({
         type: REMOVE_AUTH_LOADING,
     })
