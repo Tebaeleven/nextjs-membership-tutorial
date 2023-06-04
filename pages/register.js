@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { register } from '../actions/auth'
-import Loader from 'react-loader-spinner'
+import { Oval } from 'react-loader-spinner';
 import Head from 'next/head'
 
 const Register = () => {
@@ -90,7 +90,7 @@ const Register = () => {
                 </div>
                 <div className="flex justify-center">
                     {loading ? (
-                        <Loader type="Oval" color="#F59E00" width={50} height={50} />
+                        <Oval color="#f59e00" width={50} height={50} />
                     ): (
                             <button className='button-yellow' type="submit">
                                 アカウントを登録する
