@@ -11,7 +11,7 @@ export default async (req, res) => {
         })
         
         try {
-            const apiRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/`, {
+            const apiRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,6 +38,9 @@ export default async (req, res) => {
                         maxAge: 60 * 60 * 24 * 3, //3日
                     })
                 ])
+                return res.status(200).json({
+                    success: 'ログインに成功しました',
+                })
             } else {
                 return res.status(apiRes.status).json({
                     error: 'ログインに失敗しました',
