@@ -3,6 +3,10 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
 
+    //ログイン
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+
     // 読み込み中
     SET_AUTH_LOADING,
     REMOVE_AUTH_LOADING,
@@ -26,6 +30,18 @@ const authReducer = (state = initialState, action) => {
         case REGISTER_FAIL:
             return {
                 ...state,
+            }
+        
+        // ログイン
+        case LOGIN_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: true,
+            }
+        case LOGIN_FAIL:
+            return {
+                ...state,
+                isAuthenticated: false,
             }
         
         //読み込み中
