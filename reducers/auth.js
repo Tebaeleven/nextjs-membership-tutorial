@@ -11,6 +11,10 @@ import {
     USER_SUCCESS,
     USER_FAIL,
 
+    //リフレッシュトークン
+    REFRESH_SUCCESS,
+    REFRESH_FAIL,
+
     // 読み込み中
     SET_AUTH_LOADING,
     REMOVE_AUTH_LOADING,
@@ -60,6 +64,17 @@ const authReducer = (state = initialState, action) => {
                 user: null,
             }
         
+        // リフレッシュトークン
+        case REFRESH_SUCCESS:
+            return {
+                ...state,
+            }
+        case REFRESH_FAIL:
+            return {
+                ...state,
+                isAuthenticated:false,
+                user: null,
+            }
         //読み込み中
         case SET_AUTH_LOADING:
             return {

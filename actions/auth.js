@@ -11,6 +11,10 @@ import {
     USER_SUCCESS,
     USER_FAIL,
 
+    //リフレッシュトークン
+    REFRESH_SUCCESS,
+    REFRESH_FAIL,
+
     // 読み込み中
     SET_AUTH_LOADING,
     REMOVE_AUTH_LOADING,
@@ -126,5 +130,33 @@ export const user = () => async (dispatch) => {
     dispatch({
         type: REMOVE_AUTH_LOADING,
     })
+}
 
+//リフレッシュトークン
+export const refresh = () => async (dispatch) => {
+    dispatch({
+        type: SET_AUTH_LOADING,
+    })
+
+    try {
+        const res = await fetch('api/account/refresh', {
+            method: 'GET',
+        })
+
+        if (res.status===200) {
+            dispatch({
+                type: REFRESH_SUCCESS,
+            })
+
+            dispatch(verify())
+        }
+    } catch (err) {
+        dispatch({
+            type: REFRESH_FAIL,
+        })
+    }
+
+    dispatch({
+        type: REMOVE_AUTH_LOADING,
+    })
 }

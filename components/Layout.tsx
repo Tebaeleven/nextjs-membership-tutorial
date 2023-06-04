@@ -1,6 +1,20 @@
 import Head from "next/head"
 import Navigation from './Navigation'
+import { useDebugValue, useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { refresh } from '../actions/auth'
+
 export default function Layout(props) {
+    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        const fn = async () => {
+            if (dispatch && dispatch !== null && dispatch !== undefined) {
+                await dispatch(refresh())
+            }
+        }
+    }, [dispatch])
+    
     return (
         <>
             <Head>
