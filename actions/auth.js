@@ -15,6 +15,10 @@ import {
     REFRESH_SUCCESS,
     REFRESH_FAIL,
 
+    //ログアウト
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL,
+
     //認証チェック
     AUTHENTICATED_SUCCESS,
     AUTHENTICATED_FAIL,
@@ -180,6 +184,7 @@ export const verify = () => async (dispatch) => {
         const res = await fetch('api/account/verify', {
             method: 'GET',
         })
+
         if (res.status===200) {
             dispatch({
                 type: AUTHENTICATED_SUCCESS,
@@ -197,6 +202,35 @@ export const verify = () => async (dispatch) => {
         })
     }
     
+    dispatch({
+        type: REMOVE_AUTH_LOADING,
+    })
+}
+
+export const logout = () => async (dispatch) => {
+    dispatch({
+        type: SET_AUTH_LOADING,
+    })
+    try {
+        const res = await fetch('api/account/logout', {
+            method: 'POST',
+        })
+
+        if (res.status === 200) {
+            dispatch({
+                type: LOGOUT_SUCCESS,
+            })
+        } else {
+            dispatch({
+                type: LOGOUT_FAIL,
+            })
+        }
+    } catch (err) {
+        dispatch({
+            type: LOGIN_FAIL,
+        })
+    }
+
     dispatch({
         type: REMOVE_AUTH_LOADING,
     })

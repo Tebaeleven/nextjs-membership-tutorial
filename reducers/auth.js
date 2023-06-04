@@ -15,6 +15,10 @@ import {
     REFRESH_SUCCESS,
     REFRESH_FAIL,
 
+    //ログアウト
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL,
+
     //認証チェック
     AUTHENTICATED_SUCCESS,
     AUTHENTICATED_FAIL,
@@ -91,6 +95,18 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isAuthenticated: false,
                 user: null,
+            }
+        
+        // 認証チェック
+        case LOGOUT_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: null,
+            }
+        case LOGOUT_FAIL:
+            return {
+                ...state,
             }
         
         //読み込み中
