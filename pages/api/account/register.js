@@ -30,8 +30,6 @@ export default async (req, res) => {
                 })
             }
         } catch (err) {
-            console.log("送った",err)
-
             return res.status(500).json({
                 error:'アカウント登録に失敗しました',
             })

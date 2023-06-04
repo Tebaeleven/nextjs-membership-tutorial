@@ -7,6 +7,10 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
 
+    //ユーザー情報取得
+    USER_SUCCESS,
+    USER_FAIL,
+
     // 読み込み中
     SET_AUTH_LOADING,
     REMOVE_AUTH_LOADING,
@@ -74,7 +78,6 @@ export const login = (email, password) => async (dispatch) => {
             dispatch({
                 type: LOGIN_SUCCESS,
             })
-
             // ユーザー情報取得
             dispatch(user())
         } else {
@@ -89,6 +92,37 @@ export const login = (email, password) => async (dispatch) => {
     }
 
 
+    dispatch({
+        type: REMOVE_AUTH_LOADING,
+    })
+
+}
+
+export const user = () => async (dispatch) => {
+    dispatch({
+        type: SET_AUTH_LOADING,
+    })
+
+    try {
+        const res = await fetch('api/account/user', {
+            method: 'GET',
+        })
+        const data = await res.json()
+        
+        if (res.status === 200) {
+            dispatch({
+                type: USER_SUCCESS,
+                payload:data,
+            })
+
+        } else {
+            dispatch({
+                type: USER_FAIL,
+            })
+        }
+    } catch (error) {
+        
+    }
     dispatch({
         type: REMOVE_AUTH_LOADING,
     })
